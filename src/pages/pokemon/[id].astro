@@ -1,21 +1,23 @@
 ---
 
+//  -----------------------------------------------------
+//  ----------  /02/pokemon-static/  --------------------
+//  ----------  /src/pages/pokemon/[id].astro  ----------
+//  -----------------------------------------------------
+
 import type { GetStaticPaths } from "astro";
 import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
 
-//import MainLayout from "../../layouts/MainLayout.astro";
-
+//  -----  Path Alias  -----
+import MainLayout from "@layouts/MainLayout.astro";
+import PokemonCard from "@components/pokemons/PokemonCard.astro";
 
 //  -----  Path Relativo  -----
+//import MainLayout from "../../layouts/MainLayout.astro";
 //import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 
 //  -----  Path Absoluto  -----
 //import PokemonCard from "src/components/pokemons/PokemonCard.astro";
-
-//  -----  Path Alias  -----
-import PokemonCard from "@components/pokemons/PokemonCard.astro";
-import MainLayout from "@layouts/MainLayout.astro";
-
 
 
 //  -----  getStaticPaths  -----
@@ -36,18 +38,12 @@ export const getStaticPaths = ( async () => {
 }) satisfies GetStaticPaths;
 
 
-
 const { id } = Astro.params;
 const { name, url} = Astro.props;
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 
 
 ---
-
-
-<!-- ************************************************************************* -->
-<!-- **********  02-pokemon-static/src/pages/pokemon/[id].astro  ********** -->
-<!-- ************************************************************************* -->
 
 
 <MainLayout title={`pokemon/${id}`}>

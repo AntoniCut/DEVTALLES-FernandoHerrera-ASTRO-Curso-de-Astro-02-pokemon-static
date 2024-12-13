@@ -1,12 +1,17 @@
 ---
 
-//  -----  Código Server Side Only - Momento de construcción  -----
+//  ---------------------------------------------
+//  ----------  /02/pokemon-static/  ------------
+//  ----------  /src/pages/index.astro  ---------
+//  ---------------------------------------------
 
-//  -----  importaciones  -----
+//  -----  Código Server Side Only - Momento de construcción  -----
 
 import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
 import MainLayout from "@layouts/MainLayout.astro";
 import PokemonCard from "@components/pokemons/PokemonCard.astro";
+import Title from "@components/shared/Title.astro";
+
 
 //  -----  props  -----
 const title = "Pokemon Static | Home";
@@ -18,20 +23,16 @@ const data = (await resp.json()) as PokemonListResponse;
 
 ---
 
-<!-- *************************************************************** -->
-<!-- **********  02-pokemon-static/src/pages/index.astro  ********** -->
-<!-- *************************************************************** -->
-
 
 <MainLayout title={title}>
     
-    <img class="logo-astro" src="/logo-astro.svg">
-    <h1 class="text-3xl"> Listado de Pokemons </h1>
-    <hr />
+    <!-- <img class="logo-astro" src="/logo-astro.svg"> -->
+    <Title> Listado de Pokemons </Title>
+    
 
     <section
         aria-label="Listado de Pokémons"
-        class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-5"
+        class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-10"
     >
 
         <!-- -----  Renderizamos todos los Pokemones  ----- -->
@@ -40,13 +41,14 @@ const data = (await resp.json()) as PokemonListResponse;
                 <PokemonCard name={name} url={url} />
             ))
         }
-
+    
     </section>
 
 </MainLayout>
 
 
 <style>
+
     img {
         width: 50px;
         height: 50px;
@@ -54,4 +56,5 @@ const data = (await resp.json()) as PokemonListResponse;
         margin-top: 10px;
         margin-bottom: 10px;
     }
+ 
 </style>

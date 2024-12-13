@@ -1,7 +1,14 @@
 ---
 
-//import { ViewTransitions } from 'astro:transitions';
+//  --------------------------------------------------------
+//  ----------  /02/pokemon-static/  -----------------------
+//  ----------  /src/layouts/MainLayouts.astro  ------------
+//  --------------------------------------------------------
+
+import { ViewTransitions } from 'astro:transitions';
+
 import { siteInfo} from 'src/consts/site-info';
+import NavBar from '@components/shared/NavBar.astro';
 
 
 //  -----  Código Server Side Only - Momento de Construcción  -----
@@ -21,16 +28,14 @@ const {
 
 ---
 
-<!-- ********************************************************************** -->
-<!-- **********  02-pokemon-static/src/layouts/MainLayout.astro  ********** -->
-<!-- ********************************************************************** -->
-
 
 <html lang="es">
 	
     <head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="../../public/astro-official.svg" />
+        <!-- <link rel="icon" type="image/svg+xml" href="../../public/favicon.svg" /> -->
+        <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		
@@ -45,20 +50,23 @@ const {
         
         <title> { title } </title>
         
-        <!-- <ViewTransitions /> -->
-        <style>
+        <ViewTransitions />
+
+        <!-- <style>
+            
             @view-transition {
-              navigation: auto; /* enabled! */
-            }
-          </style>
+                navigation: auto; /* enabled! */
+            } -->
+
+        </style>
 
 	</head>
 	
-    <body class="bg-slate-800 text-slate-100 m-auto max-w-3xl">
+    <body class="bg-slate-800 text-slate-100 mx-4">
 		
-        <!-- <img class="logo-astro" src="./logo-astro.svg"> -->
+        <NavBar />
 
-        <main class="mt-5">
+        <main class="mt-10 m-auto max-w-3xl">
                        
             <slot />
 

@@ -1,5 +1,11 @@
 ---
 
+//  -----------------------------------------------------------------
+//  ----------  /02/pokemon-static/  --------------------------------
+//  ----------  /src/components/pokemons/PokemonCard.astro  ---------
+//  -----------------------------------------------------------------
+
+
 interface Props {
     url: string;
     name: string;
@@ -9,14 +15,13 @@ interface Props {
 const { url, name, isBig = false } = Astro.props;
 
 const id = url.split("/").at(-2);
+
+//  -----  url para la imagen del pokemon  -----
 const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 //console.log(id);
+
+
 ---
-
-
-<!-- *********************************************************************************** -->
-<!-- **********  02-pokemon-static/src/components/pokemons/PokemonCard.astro  ********** -->
-<!-- *********************************************************************************** -->
 
 
 <!-- href={`/pokemon/${id}`} -->
@@ -31,6 +36,7 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
         },
     ]}
 >
+    
     <img
         src={imageSrc}
         alt={name}
@@ -40,7 +46,7 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
                 "w-22 h-20": !isBig,
             },
         ]},
-        transition:name={`${name}-image`}
+        transition:name={`${name}-image`} 
 
     />
 
@@ -48,12 +54,14 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
         class:list={[
             'capitalize',
             {
-                'text-6xl text-green-500': isBig
+                'text-6xl text-green-500': isBig,
+                'text-sm ': !isBig
 
             }
         ]}
+        transition:name={`${name}-name`} 
     >
-        {id} - {name}
+        #{id} - {name}
     </span>
 
 </a>

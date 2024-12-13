@@ -1,0 +1,90 @@
+---
+
+//  ----------------------------------------------------------
+//  ----------  /02/pokemon-static/  -------------------------
+//  ----------  /src/components/shared/NavBar.astro  ---------
+//  ----------------------------------------------------------
+
+
+const links = [
+    { href: '/', text: 'Listado'},
+    { href: '/pokemons/1', text: 'Paginado'},
+    { href: '/favorites', text: 'Favoritos'},
+]
+
+const currentPath = Astro.url.pathname;
+
+---
+
+
+<nav class="shadow bg-slate-900 text-white">
+    
+    <div class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
+        
+        <div class="img-container">
+            <img class="logo-astro" src="/logo-astro.svg">
+        </div>
+        
+        {
+            links.map( ({ href, text }) => (
+                
+                <div>
+                    
+                    <a href={href} class="text-gray-300 dark:text-gray-200  mx-1.5 sm:mx-6">  { text } </a>
+
+                    { 
+                        currentPath === href 
+                            ? ( <div transition:name="menu-line" class="active"> </div> ) 
+                            : ( <div class="inactive"> </div> )
+                    }
+                    
+                </div>
+
+            ))
+               
+        }
+
+       
+        <div class="img-container">
+            <img class="logo-astro" src="/logo-astro.svg">
+        </div>
+
+    </div>
+
+</nav>
+
+
+<style>
+
+    .active {
+        @apply border-b-2 border-blue-500 mx-4
+    }
+
+    .inactive {
+        @apply border-b-2 border-transparent
+    }
+
+
+
+
+    .img-container {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img {
+        width: 30px;
+        height: 30px;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    img:hover {
+        width: 40px;
+        height: 40px;
+    }
+
+</style>
