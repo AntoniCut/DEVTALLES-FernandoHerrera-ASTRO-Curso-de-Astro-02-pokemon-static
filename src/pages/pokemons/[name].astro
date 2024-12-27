@@ -57,8 +57,8 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
             </div>
     
             <button id="btnFavourite" class="ml-4 mt-8" data-name={name} data-id={id}> 
-                <Icon name="heart-outline" size={50}/> 
-                <Icon class="hidden" name="heart-full" size={45}/> 
+                <Icon data-outline name="heart-outline" size={50}/> 
+                <Icon data-full class="hidden" name="heart-full" size={45}/> 
             </button>
 
         </div>
@@ -83,20 +83,107 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
         id: number;
     }
 
-    const handler = () => {
 
-        const btnFavourite = document.querySelector('#btnFavourite') as HTMLButtonElement;
-        if(!btnFavourite) return;
+    //  ---------------------------------------------------------
+    //  ----------  Ciclo de Vida del View Transition  ----------
+    //  ---------------------------------------------------------
+    
+    //  -----  antes de la preparación  -----
+    document.addEventListener('astro:before-preparation', () => {
+        console.log('astro:before-preparation');
+    });
+
+    //  -----  despues de la preparación  -----
+    document.addEventListener('astro:after-preparation', () => {
+        console.log('astro:after-preparation');
+    });
+
+    //  -----  antes del cambio  -----
+    document.addEventListener('astro:before-swap', () => {
+        console.log('astro:before-swap');
+    });
+
+    //  -----  despues del cambio  -----
+    document.addEventListener('astro:after-swap', () => {
+        console.log('astro:after-swap');
+    });
+
+    //  -----  cuando script bloqueantes, estilos han sido cargados y con once: true solo se ejecuta una vez  -----
+    document.addEventListener('astro:page-load', () => {
+        console.log('astro:page-load')
+    });  //  <==  dependencia once: true - solo se ejecuta una vez
+    
+
+    //  ------------------------------------------------------------
+    
+    //  -----  Botones Corazones  -----
+    const handlerPageLoad = () => {
+
+        let FavoritePokemons: FavoritePokemon[] = JSON.parse(  
+            localStorage.getItem('favorites')  ?? '[]'
+        );
+        console.log('FavouritePokemon => ', FavoritePokemons)
+
+
+        //  -----  referencias al HTML  -----
+        const btnFavorite = document.querySelector('#btnFavourite') as HTMLButtonElement;
+        const heartOutline = document.querySelector('[data-outline]') as HTMLElement;
+        const heartFull = document.querySelector('[data-full]') as HTMLElement;
+        //console.log(heartOutline);
+        //console.log(heartFull);
+
+
+        if(!btnFavorite) return;
         
-        const name = btnFavourite.dataset.name; 
-        const id = btnFavourite.dataset.id; 
+        const name = btnFavorite.dataset.name ?? ''; 
+        const id = btnFavorite.dataset.id ?? ''; 
+
+        
+        //  -----  Persistencia del Corazón - accedemos al localStorage  -----
+        const isFavourite = FavoritePokemons.some( fav => fav.name === name);
+
+        if( isFavourite ) {
+            heartOutline.classList.add('hidden');
+            heartFull.classList.remove('hidden');
+        }
+
+
+
+
+        const toggleFavourite = () => {
+
+            //  -----  Persistencia del Corazón - accedemos al localStorage  -----
+            const isFavourite = FavoritePokemons.some( fav => fav.name === name);
+
+            //  Remover
+            if( isFavourite) FavoritePokemons = FavoritePokemons.filter( fav => fav.name !== name);
             
-        document.addEventListener('click', () => {
+            //  Agregar
+            else {     
+                FavoritePokemons.push({
+                    id: +id,
+                    name: name
+                })
+            }
+
+            localStorage.setItem('favorites', JSON.stringify(FavoritePokemons));
+        }
+        
+
+        //  -----  click en el corazón  -----
+        btnFavorite.addEventListener('click', () => {
+            
             console.log({ name, id });
-        })
+
+            heartOutline.classList.toggle('hidden');
+            heartFull.classList.toggle('hidden');
+
+            toggleFavourite();
+        });
     }
 
-    document.addEventListener('astro:page-load', handler);
+
+    document.addEventListener('astro:page-load', handlerPageLoad);
 
 </script>
 

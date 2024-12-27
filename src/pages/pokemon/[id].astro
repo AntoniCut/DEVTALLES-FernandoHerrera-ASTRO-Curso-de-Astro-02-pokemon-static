@@ -38,6 +38,8 @@ export const getStaticPaths = ( async () => {
 }) satisfies GetStaticPaths;
 
 
+//const base = '/udemy/pokemon-static';
+const base = '';
 const { id } = Astro.params;
 const { name, url} = Astro.props;
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
@@ -46,7 +48,7 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 ---
 
 
-<MainLayout title={`pokemon/${id}`}>
+<MainLayout title={`${base}pokemon/${id}`}>
     
        
     <section class="mt-10 mx-10 flex flex-col justify-center items-center">

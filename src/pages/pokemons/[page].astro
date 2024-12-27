@@ -48,8 +48,8 @@ const { page } = Astro.props;
 
     <section
         aria-label="Listado de Pokémons"
-        class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-10"
         
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-10"
     >
 
         <!-- -----  Renderizamos todos los Pokemones  ----- -->
@@ -63,7 +63,7 @@ const { page } = Astro.props;
 
 
     <!-- -----  Botones, logo astro y número de página  ----- -->
-    <section class="flex mt-10 ml-5 gap-2 items-center">
+    <section class="flex mt-10 gap-2 items-center">
 
         <!-- { page.url.prev && <a class="btn" href={page.url.prev}> Anteriores </a> } -->
         
@@ -74,7 +74,8 @@ const { page } = Astro.props;
                     disabled: !page.url.prev,
                 }
             ]} 
-            href={page.url.prev}
+                        
+            href={ page.url.prev }
         > 
             Anteriores 
         </a>
@@ -86,7 +87,8 @@ const { page } = Astro.props;
                     disabled: !page.url.next,
                 }
             ]} 
-            href={page.url.next}
+            
+            href={ page.url.next }
         > 
             Siguientes 
         </a>
